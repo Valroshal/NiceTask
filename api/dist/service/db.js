@@ -16,6 +16,7 @@ function connectToDatabase() {
         try {
             const dataSource = new typeorm_1.DataSource(typeorm_config_1.connectionOptions);
             yield dataSource.initialize();
+            console.log('Connected to PostgreSQL');
             return dataSource;
         }
         catch (error) {

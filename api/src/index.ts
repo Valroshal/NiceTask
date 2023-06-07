@@ -7,7 +7,6 @@ import bodyParser from 'body-parser';
 // Connect to the PostgreSQL database
 import connectToDatabase from './service/db';
 import {login, register, validateToken} from './controller/userController';
-import {getWeather} from "./controller/weatherController";
 
 // Load environment variables
 config();
@@ -54,9 +53,6 @@ app.post('/login', login);
 app.get('/validate_token', validateToken, (req, res) => {
   res.json({ message: 'Access granted' });
 });
-
-//get weather
-app.post('/get_weather', getWeather);
 
 // Handle 404 errors
 app.use((req, res) => {
