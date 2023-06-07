@@ -57,9 +57,8 @@ function connectToDatabase() {
 }
 connectToDatabase();
 const validateToken = (req, res, next) => {
-    // Get the token from the request headers, query parameters, or cookies
+    // Get the token
     const token = req.headers.authorization || req.query.token || req.cookies.token;
-    console.log('token', token);
     if (!token) {
         return res.status(401).json({ message: 'No token provided' });
     }
@@ -70,24 +69,18 @@ const validateToken = (req, res, next) => {
         if (err) {
             return res.status(401).json({ message: 'Invalid token' });
         }
-        // If the token is valid, you can access the decoded data in `decoded` object
-        //req.userId = decoded.user_id; TODO here is the bug in userId
         next();
     });
 };
 exports.validateToken = validateToken;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('login called');
     try {
         const { email, password } = req.body;
-        console.log('req.body', req.body);
         if (!(email && password)) {
             return res.status(400).send('All inputs are required');
         }
         const userRepository = dataSource.getRepository(userModel_1.User);
-        console.log('userRepository', userRepository);
         const user = yield userRepository.findOne({ where: { email } });
-        console.log('user', user);
         if (user && (yield bcrypt.compare(password, user.password))) {
             const token = jwt.sign({ user_id: user.id, email }, tokenKey, {
                 expiresIn: '2h',
@@ -114,16 +107,12 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!(email && password)) {
             return res.status(400).send('All inputs are required');
         }
-        console.log('before fetching user');
         const userRepository = dataSource.getRepository(userModel_1.User);
-        console.log('after fetching user');
         const oldUser = yield userRepository.findOne({ where: { email } });
         if (oldUser) {
-            console.log('oldUser', oldUser);
             return res.status(409).send('User Already Exist. Please Login');
         }
         const encryptedPassword = yield bcrypt.hash(password, 10);
-        console.log('encryptedPassword', encryptedPassword);
         const user = yield createUser(email.toLowerCase(), encryptedPassword);
         console.log('user', user);
         const token = jwt.sign({ user_id: user.id, email }, tokenKey, {
@@ -135,7 +124,6 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             id: user.id,
             password: user.password,
         };
-        console.log('returnedUser', returnedUser);
         return res.status(201).json(returnedUser);
     }
     catch (err) {
@@ -151,7 +139,6 @@ const createUser = (email, password) => __awaiter(void 0, void 0, void 0, functi
         user.password = password;
         const userRepository = dataSource.getRepository(userModel_1.User);
         yield userRepository.save(user);
-        console.log('User created:', user);
         return user;
     }
     catch (error) {
