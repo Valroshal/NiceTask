@@ -1,0 +1,22 @@
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+}
+
+button {
+  margin-top: 16px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.error-message {
+  color: crimson;
+  padding-top: 5px;
+}

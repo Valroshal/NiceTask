@@ -1,0 +1,25 @@
+<div class="weather-container">
+  <h2>Current Weather</h2>
+  <div class="weather-details">
+    <div class="weather-item">
+      <span class="label">Temperature:</span>
+      <span class="value">{{ weatherData.temperature }}°C</span>
+    </div>
+    <div class="weather-item">
+      <span class="label">Wind Speed:</span>
+      <span class="value">{{ weatherData.windspeed }} km/h</span>
+    </div>
+    <div class="weather-item">
+      <span class="label">Wind Direction:</span>
+      <span class="value">{{ weatherData.winddirection }}°</span>
+    </div>
+    <div class="weather-item">
+      <span class="label">Is Day:</span>
+      <span class="value">{{ weatherData.is_day ? 'Yes' : 'No' }}</span>
+    </div>
+    <div class="weather-item">
+      <span class="label">Time:</span>
+      <span class="value">{{ weatherData.time }}</span>
+    </div>
+  </div>
+</div>
