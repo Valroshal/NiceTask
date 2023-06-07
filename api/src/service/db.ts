@@ -1,19 +1,19 @@
-import { DataSource, DataSourceOptions } from 'typeorm';
-import { User } from "../../dist/model/userModel.js";
+import { DataSource } from 'typeorm';
+import {connectionOptions} from "../typeorm-config";
 
 async function connectToDatabase(): Promise<DataSource> {
   try {
-    const connectionOptions: DataSourceOptions = {
-      type: 'postgres',
-      host: 'abul.db.elephantsql.com',
-      port: 5432,
-      username: 'elddwomh',
-      password: 'skgUevkZBiCtyZndoLUMgKK_NPDC90aD',
-      database: 'elddwomh',
-      synchronize: true,
-      logging: true,
-      entities: [User],
-    };
+    // const connectionOptions: DataSourceOptions = {
+    //   type: 'postgres',
+    //   host: 'abul.db.elephantsql.com',
+    //   port: 5432,
+    //   username: 'elddwomh',
+    //   password: 'skgUevkZBiCtyZndoLUMgKK_NPDC90aD',
+    //   database: 'elddwomh',
+    //   synchronize: true,
+    //   logging: true,
+    //   entities: [User],
+    // };
 
     const dataSource: DataSource = new DataSource(connectionOptions);
     await dataSource.initialize();
@@ -24,7 +24,4 @@ async function connectToDatabase(): Promise<DataSource> {
     throw error;
   }
 }
-//
-// const dataSourcePromise = connectToDatabase();
-// export default dataSourcePromise;
 export default connectToDatabase;
