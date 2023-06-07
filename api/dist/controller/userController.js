@@ -47,7 +47,6 @@ function connectToDatabase() {
         try {
             dataSource = new typeorm_1.DataSource(typeorm_config_1.connectionOptions);
             yield dataSource.initialize();
-            console.log('Connected to PostgreSQL');
         }
         catch (error) {
             console.error('Error connecting to the database', error);
@@ -114,7 +113,6 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const encryptedPassword = yield bcrypt.hash(password, 10);
         const user = yield createUser(email.toLowerCase(), encryptedPassword);
-        console.log('user', user);
         const token = jwt.sign({ user_id: user.id, email }, tokenKey, {
             expiresIn: '2h',
         });

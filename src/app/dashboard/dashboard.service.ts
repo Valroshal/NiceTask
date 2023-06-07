@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { API_WEATHER_URL } from '../../consts/consts';
-import {WeatherResponse} from "../../consts/types";
+import {lastValueFrom, Observable} from 'rxjs';
+import {API_REGISTER_URL, API_WEATHER_URL} from '../../consts/consts';
+import {UserData, WeatherResponse} from "../../consts/types";
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +28,12 @@ export class WeatherService {
     });
   }
 
-  fetchWeatherData(latitude: number, longitude: number): Observable<WeatherResponse> {
-    const apiWeatherUrl = API_WEATHER_URL.replace('{latitude}', latitude.toString()).replace('{longitude}', longitude.toString());
-    return this.http.get<WeatherResponse>(apiWeatherUrl);
+  async fetchWeatherData(latitude: number, longitude: number): Promise<Observable<WeatherResponse>> {
+    // const apiWeatherUrl = API_WEATHER_URL.replace('{latitude}', latitude.toString()).replace('{longitude}', longitude.toString());
+    // return this.http.get<WeatherResponse>(apiWeatherUrl);
+    const response$ = this.http.post<any>(API_REGISTER_URL, {latitude, longitude});
+    console.log('response$', response$)
+    return await lastValueFrom(response$);
   }
 
 }

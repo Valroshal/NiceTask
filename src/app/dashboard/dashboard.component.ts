@@ -25,13 +25,13 @@ export class DashboardComponent implements OnInit {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
 
-      const weatherResponse$: Observable<WeatherResponse> = this.weatherService.fetchWeatherData(latitude, longitude);
+      const weatherResponse$: Observable<WeatherResponse> = await this.weatherService.fetchWeatherData(latitude, longitude);
       const weatherResponse: WeatherResponse = await lastValueFrom(weatherResponse$);
       this.weatherData = weatherResponse.current_weather;
 
       // Format the string
       this.weatherData.time = this.datePipe.transform(new Date(weatherResponse.current_weather.time), 'yyyy-MM-dd HH:mm') || weatherResponse.current_weather.time;
-
+      console.log('this.weatherData', this.weatherData)
     } catch (error) {
       console.error('Error fetching weather data:', error);
     }
