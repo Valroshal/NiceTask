@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import {API_LOGIN_URL, API_VALIDATE_TOKEN_URL} from "../../consts/consts";
-import {UserData, ValidateTokenResponse} from "../../consts/types";
+import {UserData, UserRequest, ValidateTokenResponse} from "../../consts/types";
 
 @Injectable()
 export class LoginService {
@@ -30,11 +30,12 @@ export class LoginService {
     }
   }
 
-  loginUser(user: UserData): Observable<UserData> {
+  loginUser(user: UserRequest): Observable<UserData> {
     return this.http.post<UserData>(API_LOGIN_URL, user).pipe(
       tap((response: UserData) => {
         if (response.token) {
           this.token = response.token;
+          // set token to local storage to grant user access without login while token is valid
           localStorage.setItem('token', this.token);
         }
       })

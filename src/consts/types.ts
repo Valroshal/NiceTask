@@ -36,3 +36,8 @@ export interface UserData {
   password: string;
 
 }
+
+export interface UserRequest {
+  email: string;
+  password: string;
+}
