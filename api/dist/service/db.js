@@ -14,17 +14,6 @@ const typeorm_config_1 = require("../typeorm-config");
 function connectToDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            // const connectionOptions: DataSourceOptions = {
-            //   type: 'postgres',
-            //   host: 'abul.db.elephantsql.com',
-            //   port: 5432,
-            //   username: 'elddwomh',
-            //   password: 'skgUevkZBiCtyZndoLUMgKK_NPDC90aD',
-            //   database: 'elddwomh',
-            //   synchronize: true,
-            //   logging: true,
-            //   entities: [User],
-            // };
             const dataSource = new typeorm_1.DataSource(typeorm_config_1.connectionOptions);
             yield dataSource.initialize();
             console.log('Connected to PostgreSQL');

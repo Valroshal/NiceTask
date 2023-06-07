@@ -39,23 +39,13 @@ const userModel_1 = require("../model/userModel");
 (0, dotenv_1.config)();
 const bcrypt = __importStar(require("bcrypt"));
 const jwt = __importStar(require("jsonwebtoken"));
+const typeorm_config_1 = require("../typeorm-config");
 const tokenKey = process.env.TOKEN_KEY || '';
 let dataSource;
 function connectToDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const connectionOptions = {
-                type: 'postgres',
-                host: 'abul.db.elephantsql.com',
-                port: 5432,
-                username: 'elddwomh',
-                password: 'skgUevkZBiCtyZndoLUMgKK_NPDC90aD',
-                database: 'elddwomh',
-                synchronize: true,
-                logging: true,
-                entities: [userModel_1.User],
-            };
-            dataSource = new typeorm_1.DataSource(connectionOptions);
+            dataSource = new typeorm_1.DataSource(typeorm_config_1.connectionOptions);
             yield dataSource.initialize();
             console.log('Connected to PostgreSQL');
         }
