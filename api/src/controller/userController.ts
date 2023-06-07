@@ -10,8 +10,6 @@ import {Secret} from "jsonwebtoken";
 import {connectionOptions} from "../typeorm-config";
 const tokenKey: Secret = process.env.TOKEN_KEY || '';
 
-
-
 let dataSource: DataSource;
 
 async function connectToDatabase(): Promise<void> {
