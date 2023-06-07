@@ -30,7 +30,6 @@ async function startServer() {
   try {
 
     await connectToDatabase();
-    console.log('Connected to the database');
 
     // Additional server setup and start code
     app.listen(port, () => {

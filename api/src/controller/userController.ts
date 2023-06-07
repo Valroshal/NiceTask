@@ -16,7 +16,6 @@ async function connectToDatabase(): Promise<void> {
   try {
     dataSource = new DataSource(connectionOptions);
     await dataSource.initialize();
-    console.log('Connected to PostgreSQL');
   } catch (error) {
     console.error('Error connecting to the database', error);
     throw error;
@@ -101,8 +100,6 @@ const register = async (req: Request, res: Response) => {
       email.toLowerCase(),
       encryptedPassword
     );
-
-    console.log('user', user);
 
     const token = jwt.sign(
       {user_id: user.id, email},
